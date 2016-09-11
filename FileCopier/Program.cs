@@ -1,36 +1,20 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+
+/// things todo:
+/// 1. convert this into a windows service application/ or an application that keeps running in the background
+/// 2. register the shortcuts to run it from the windows explorer
 
 namespace FileCopier
 {
-    /// <summary>
-    /// this data sructure holds the data that has to be copied,
-    /// a destination directory, and list of all the files and the directories that have to copied.
-    /// </summary>
-    public class CopyData
-    {
-        public string DestinationDirectory { get; set; }
-        public List<string> Entity = new List<string>();       
-        
-        public CopyData(string destination, params string[] files)
-        {
-            DestinationDirectory = destination;
-            Entity.AddRange(files);
-        }
-    }
-
     public class FileCopier
     {
-        private List<CopyData> _data = new List<CopyData>();
+        private Queue<CopyData> _data = new Queue<CopyData>();
 
         internal void InitiateCopy(IEnumerable<CopyData> copyData)
         {
-            _data.AddRange(copyData);
+            copyData.ForEach(x => _data.Enqueue(x));
         }
 
         internal void CompleteDataCopy()
@@ -114,15 +98,6 @@ namespace FileCopier
             fileCopier.CompleteDataCopy();
 
             Assert.AreEqual(true, Directory.Exists(@"F:\RoughWork\destination\Good Will Hunting (1997)"));
-        }
-    }
-
-
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
         }
     }
 }
