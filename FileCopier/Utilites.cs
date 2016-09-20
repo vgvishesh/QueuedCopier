@@ -16,4 +16,25 @@ namespace FileCopier
             }
         }
     }
+
+    static class QueueExtension
+    {
+        public static T SafeDequeue<T>(this Queue<T> queue)
+        {
+            T dequeuedItem;
+            lock(queue)
+            {
+                dequeuedItem = queue.Dequeue();
+            }
+            return dequeuedItem;
+        }
+
+        public static void SafeEnqueue<T>(this Queue<T> queue, T item)
+        {
+            lock(queue)
+            {
+                queue.Enqueue(item);
+            }
+        }
+    }
 }

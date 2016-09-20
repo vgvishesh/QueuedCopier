@@ -25,5 +25,10 @@ namespace FileCopier
             fileData = Encoding.Default.GetString(bytes);            
             data = JsonConvert.DeserializeObject<T>(fileData);
         }
+
+        public static void GetDataFromString<T>(string input, out T data)
+        {
+            data = JsonConvert.DeserializeObject<T>(input);
+        }
     }
 }

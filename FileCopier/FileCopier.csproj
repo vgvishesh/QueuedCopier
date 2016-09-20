@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="CopyData.cs" />
     <Compile Include="CopyManager.cs" />
+    <Compile Include="FileCopier.cs" />
     <Compile Include="JsonHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
